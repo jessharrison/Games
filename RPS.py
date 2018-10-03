@@ -35,10 +35,17 @@ def play_RPS():
   score = [0, 0]
   
   while play:
-    user_choice = raw_input("Enter your choice:\nROCK, PAPER, SCISSORS, LIZARD, SPOCK... \n... ").lower()
+    while True:
+      user_choice = raw_input("Enter your choice:\nROCK, PAPER, SCISSORS, LIZARD, SPOCK... \n... ").lower()
+      if user_choice not in options:
+        print "I don't understand. Try again."
+        continue
+      else:
+        break
+
     computer_choice = options[randint(0,4)]
     result = decide_winner(user_choice, computer_choice)
-    
+
     if result == "won":
       score[0] += 1
     elif result == "tie":
@@ -48,14 +55,17 @@ def play_RPS():
     
     print "The score is: \nYOU: %d \nCOMPUTER: %d\n" %(score[0],score[1])
     
-    play_again = raw_input("Do you want to play again? Y or N? \n ... ")
-    if play_again == "Y":
-      play = True
-    elif play_again == "N" or "n":
-      play = False
-      print "Good game!"
-    else:
-      print "The computer did not understand your input."
-      pass
+    while True:
+      play_again = raw_input("Do you want to play again? Y or N? \n ... ").upper()
+      if play_again == "Y":
+        play = True
+        break
+      elif play_again == "N":
+        play = False
+        print "Good game!"
+        return
+      else:
+        print "The computer did not understand your input."
+        continue
   
 play_RPS()
